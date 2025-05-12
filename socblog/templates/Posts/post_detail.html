@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="post-detail card shadow-sm p-4 mb-4 bg-white rounded">
+    <h2 class="text-center mb-4">{{ post.content }}</h2>
+    
+    <div class="text-center mb-4">
+        <img src="{{ post.image.url }}" alt="{{ post.content }}" class="img-fluid rounded" width="400">
+    </div>
+    
+    <div class="post-info mb-4">
+        <p><strong>Автор:</strong> <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a></p>
+        <p><strong>Дата создания:</strong> {{ post.created_at }}</p>
+        <p><strong>Рейтинг:</strong> {{ post.rating }}</p>
+    </div>
+    
+    <div class="post-actions mb-4">
+        <a href="{% url 'toggle_like' post.id %}" class="btn btn-outline-success btn-sm">+</a>
+        <a href="{% url 'toggle_dislike' post.id %}" class="btn btn-outline-danger btn-sm">-</a>
+        <a href="{% url 'add_to_favorites' post.id %}" class="btn btn-outline-primary btn-sm">В избранное</a>
+        
+        {% if request.user == post.user or request.user.is_superuser %}
+            <a href="{% url 'delete_post' post.id %}" class="btn btn-danger btn-sm">Удалить</a>
+        {% endif %}
+    </div>
+    
+    <div class="comments-section mt-5">
+        <h3 class="mb-4">Комментарии</h3>
+        <ul class="list-group mb-4">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <strong>{{ comment.user.username }}</strong>
+                        <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+                    <p class="mt-2 mb-0">{{ comment.text }}</p>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-center text-muted">
+                    <i class="fas fa-comment-slash fa-2x mb-2"></i>
+                    <p>Комментариев пока нет. Будьте первым, кто оставит комментарий!</p>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        {% if user.is_authenticated %}
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea name="text" class="form-control" rows="3" placeholder="Напишите комментарий..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Добавить комментарий</button>
+        </form>
+        {% else %}
+        <p class="text-muted">Войдите, чтобы оставить комментарий.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile">
+    {% if user_profile.profile_image %}
+        <img src="{{ user_profile.profile_image.url }}" alt="{{ user_profile.username }}" class="img-thumbnail" width="150">
+    {% else %}
+        <img src="https://via.placeholder.com/150" alt="Default Avatar" class="img-thumbnail" width="150">
+    {% endif %}
+    <h2>{{ user_profile.username }}</h2>
+    <p>{{ user_profile.bio }}</p>
+    <p>Подписчики: {{ user_profile.followers.count }}</p>
+    <p>Подписки: {{ user_profile.following.count }}</p>
+
+    <a href="{% url 'user_posts' user_profile.username %}" class="btn btn-outline-primary">Посты пользователя</a>
+
+    {% if user.is_authenticated and user != user_profile %}
+        <form method="post" action="{% url 'toggle_follow' user_profile.username %}">
+            {% csrf_token %}
+            {% if is_following %}
+                <button class="btn btn-danger">Отписаться</button>
+            {% else %}
+                <button class="btn btn-success">Подписаться</button>
+            {% endif %}
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

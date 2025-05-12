@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="favorite-body">
+    <h2>Избранные посты</h2>
+    <ul class="post-list">
+        {% for favorite in favorites %}
+            <div class="post-item card mb-3">
+                <div class="card-body">
+                    <li>
+                        <img src="{{ favorite.post.image.url }}" alt="{{ favorite.post.content }}" class="img-fluid rounded mb-2" width="100">
+                        <p><strong>{{ favorite.post.user.username }}</strong></p>
+                        <h3><a href="{% url 'post_detail' favorite.post.id %}">{{ favorite.post.content }}</a></h3>
+                        <a href="{% url 'remove_from_favorites' favorite.post.id %}" class="btn btn-outline-primary btn-sm">Удалить из избранных</a>
+                    </li>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

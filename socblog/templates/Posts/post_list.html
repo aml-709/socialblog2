@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="post-body">
+    <a href="{% url 'create_post' %}" class="btn btn-primary w-100 mb-3">Создать пост</a>
+    <h2>Посты</h2>
+    <div class="post-list">
+        {% for post in posts %}
+            <div class="post-item card mb-3">
+                <div class="card-body">
+                    <img src="{{ post.image.url }}" alt="{{ post.content }}" class="mx-auto d-block img-fluid rounded mb-2" width="330">
+                    <p><strong>Автор:</strong> <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a></p>
+                    <h3><a href="{% url 'post_detail' post.id %}">{{ post.content }}</a></h3>
+                    <p>Рейтинг: {{ post.rating }}</span></p>
+                    <a href="{% url 'toggle_like' post.id %}" class="btn btn-outline-success btn-sm">+</a>
+                    <a href="{% url 'toggle_dislike' post.id %}" class="btn btn-outline-danger btn-sm">-</a>
+                    <a href="{% url 'add_to_favorites' post.id %}" class="btn btn-outline-primary btn-sm">Добавить в избранное</a>
+                    
+                    {% if request.user == post.user or request.user.is_superuser %}
+                        <a href="{% url 'delete_post' post.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+</div>
+{% endblock %}
