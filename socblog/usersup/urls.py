@@ -1,8 +1,8 @@
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from users import views
-from users.views import (
+from usersup import views
+from usersup.views import (
     add_to_favorites, remove_from_favorites, favorites_view,
     post_list, post_detail, delete_post, toggle_like, toggle_dislike,
     profile_view, edit_profile, toggle_follow, account_view, Register

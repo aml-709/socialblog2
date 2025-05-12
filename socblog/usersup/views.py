@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from users.forms import PostForm, RegisterForm
+from usersup.forms import PostForm, RegisterForm
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, get_user_model
-from users.forms import UserCreationForm, CommentForm, ProfileForm
+from usersup.forms import UserCreationForm, CommentForm, ProfileForm
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from .models import Favorite, Comment, Post, Like, Dislike

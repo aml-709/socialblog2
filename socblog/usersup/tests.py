@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from users.models import Post
+from usersup.models import Post
 
 User = get_user_model()
 

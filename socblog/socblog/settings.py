@@ -33,7 +33,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'usersup.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
     'rest_framework.authtoken',
     'rest_framework',
+    'usersup'
 ]
 
 MIDDLEWARE = [
