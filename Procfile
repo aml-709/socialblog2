@@ -1,0 +1,1 @@
+web: gunicorn socialblog2.wsgi
