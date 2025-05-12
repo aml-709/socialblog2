@@ -12,5 +12,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', os.getenv('DJANGO_SETTINGS_MODULE', 'socblog.socblog.settings'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'socblog.socblog.settings')
+
+from django.core.wsgi import get_wsgi_application
+
+application = get_wsgi_application()
 
