@@ -1,1 +1,1 @@
-web: gunicorn socialblog2.wsgi
+web: gunicorn socblog.wsgi
